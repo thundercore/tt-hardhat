@@ -6,11 +6,6 @@ import "hardhat/types/runtime";
 
 declare module "hardhat/types/runtime" {
   export interface HardhatRuntimeEnvironment {
-    logDeployContracts: (
-      chainId: number | undefined,
-      contracts: {
-        [contractName: string]: any;
-      }
-    ) => void;
+    logDeployContracts: (contracts: { [contractName: string]: any }) => void;
   }
 }

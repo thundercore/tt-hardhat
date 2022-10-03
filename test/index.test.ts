@@ -1,8 +1,5 @@
 // tslint:disable-next-line no-implicit-dependencies
 import { assert } from "chai";
-import path from "path";
-
-import { logDeployContracts } from "./deployLogs";
 
 import { useEnvironment } from "./helpers";
 
