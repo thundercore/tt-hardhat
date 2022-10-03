@@ -27,13 +27,11 @@ extendConfig(
       ...userConfig.networks,
       ...config.networks,
       "thunder-testnet": {
-        allowUnlimitedContractSize: true,
         url: "https://testnet-rpc.thundercore.com",
         chainId: 18,
         ...networkConfig,
       },
       "thunder-mainnet": {
-        allowUnlimitedContractSize: true,
         url: "https://mainnet-rpc.thundercore.com",
         chainId: 108,
         ...networkConfig,

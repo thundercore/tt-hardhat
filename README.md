@@ -19,6 +19,10 @@ Then in hardhat.config
 import "tt-hardhat";
 ```
 
+### Config
+
+account: KEY=\$PRIVATE_KEY in your .env file
+
 ### Features
 
 Networks added

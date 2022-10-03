@@ -19,8 +19,7 @@
     "test": "mocha --exit --recursive 'test/**/*.test.ts'",
     "build": "tsc",
     "watch": "tsc -w",
-    "prepublishOnly": "npm run build",
-    "publish": "publish"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist/src/",
