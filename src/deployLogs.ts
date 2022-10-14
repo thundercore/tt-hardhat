@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import path from "path";
-import { network } from "hardhat";
 
 function writeFile(filePath: string, data: any) {
   fs.writeFile(filePath, data, function (err) {
@@ -69,8 +68,11 @@ function writeBaseLog(
   writeFile(filePath, JSON.stringify(data));
 }
 
-export function logDeployContracts(contracts: { [contractName: string]: any }) {
-  const { chainId } = network.config;
+export function logDeployContracts(
+  chainId: number | undefined,
+  contracts: { [contractName: string]: any }
+) {
+  if (!chainId) throw new Error("no chainID");
   const basePath = path.join(process.cwd(), "contracts-deployed");
 
   createDirIfNone(basePath);

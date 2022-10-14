@@ -20,7 +20,7 @@ async function main() {
 
   await greeter.deployed();
 
-  logDeployContracts({ Greeter: greeter });
+  logDeployContracts(18, { Greeter: greeter });
 }
 
 // We recommend this pattern to be able to use async/await everywhere
