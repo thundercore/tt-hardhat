@@ -26,6 +26,8 @@ Networks added
 1. thundercore-testnet (chain ID - 18)
 1. thundercore-mainnet (chain ID - 108)
 
+Use deploy account for the above networks: simply add a KEY environment variable
+
 Log contracts deployed
 
 ```js
@@ -50,12 +52,15 @@ Read Hardhat's [Plugin Development Guide](https://hardhat.org/advanced/building-
 
 ## Testing
 
-(From Hardhat) Running `yarn run test` will run every test located in the `test/` folder. They
-use [mocha](https://mochajs.org) and [chai](https://www.chaijs.com/),
-but you can customize them.
+(From Hardhat) Running `yarn run test` will run every test located in the `test/` folder.
 
-We recommend creating unit tests for your own modules, and integration tests for
-the interaction of the plugin with Hardhat and its dependencies.
+Test deploy script
+
+```
+cd test/fixture-projects/hardhat-project
+yarn
+yarn hardhat run scripts/testDeploy.ts
+```
 
 ## Building the project
 

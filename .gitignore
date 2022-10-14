@@ -64,3 +64,4 @@ typings/
 
 cache/
 artifacts/
+test/fixture-projects/hardhat-project/contracts-deployed
