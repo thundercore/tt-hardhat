@@ -1,6 +1,6 @@
 {
   "name": "tt-hardhat",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "description": "Hardhat TypeScript plugin boilerplate",
   "repository": "github:thundercore/tt-hardhat.git",
   "author": "Nomic Labs LLC",
