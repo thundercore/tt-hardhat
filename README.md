@@ -50,6 +50,10 @@ npm install
 
 Read Hardhat's [Plugin Development Guide](https://hardhat.org/advanced/building-plugins.html)
 
+## Publish
+
+`yarn publish` make sure to `yarn login` if you haven't
+
 ## Testing
 
 (From Hardhat) Running `yarn run test` will run every test located in the `test/` folder.
