@@ -16,7 +16,7 @@ extendConfig(
 
     const networkConfig = {
       gas: 90000000,
-      gasPrice: 1e9,
+      gasPrice: 15e9,
       gasMultiplier: 1,
       timeout: 20000,
       httpHeaders: {},
