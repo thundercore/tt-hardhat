@@ -1,5 +1,7 @@
 import * as fs from "fs";
 import path from "path";
+import { BaseContract } from "ethers";
+import { BaseProvider, TransactionReceipt } from "@ethersproject/providers";
 
 function writeFile(filePath: string, data: any) {
   fs.writeFile(filePath, data, function (err) {
@@ -15,19 +17,30 @@ function createDirIfNone(dir: string) {
   }
 }
 
+function getCommitHash() {
+  return require("child_process")
+    .execSync("git rev-parse --short HEAD")
+    .toString()
+    .trim();
+}
+
 function logVerbose(
   filePath: string,
-  contracts: { [contractName: string]: any }
+  contracts: { [contractName: string]: BaseContract },
+  receipts: { [contractName: string]: TransactionReceipt }
 ) {
   const timestamp = new Date().getTime();
+  const commitHash = getCommitHash();
+
   const info = Object.keys(contracts).reduce(
     (accu, cur) => ({
       ...accu,
       [cur]: {
         address: contracts[cur].address,
+        commitHash,
         transaction: {
           hash: contracts[cur].deployTransaction.hash,
-          blockNumber: contracts[cur].deployTransaction.blockNumber,
+          blockNumber: receipts[cur].blockNumber,
           gasLimit: contracts[cur].deployTransaction.gasLimit,
           gasPrice: contracts[cur].deployTransaction.gasPrice,
         },
@@ -35,9 +48,11 @@ function logVerbose(
     }),
     {}
   );
+
   const datedInfo = {
     [timestamp]: info,
   };
+
   fs.readFile(filePath, function (err, data) {
     if (err) {
       if (err.message.includes("no such file or directory")) {
@@ -57,7 +72,7 @@ function logVerbose(
 
 function writeBaseLog(
   filePath: string,
-  contracts: { [contractName: string]: any }
+  contracts: { [contractName: string]: BaseContract }
 ) {
   const data = Object.keys(contracts).reduce((accu, cur) => {
     return {
@@ -67,10 +82,31 @@ function writeBaseLog(
   }, {});
   writeFile(filePath, JSON.stringify(data));
 }
+async function getReceipts(
+  provider: BaseProvider,
+  contracts: { [contractName: string]: BaseContract }
+): Promise<{ [contractName: string]: TransactionReceipt }> {
+  const sortedReceipts = await Promise.all(
+    Object.keys(contracts).map((contractName) =>
+      provider.getTransactionReceipt(
+        contracts[contractName].deployTransaction.hash
+      )
+    )
+  );
+  const receipts = Object.keys(contracts).reduce(
+    (accu, cur, index) => ({
+      ...accu,
+      [cur]: sortedReceipts[index],
+    }),
+    {}
+  );
+  return receipts;
+}
 
-export function logDeployContracts(
+async function main(
   chainId: number | undefined,
-  contracts: { [contractName: string]: any }
+  provider: BaseProvider,
+  contracts: { [contractName: string]: BaseContract }
 ) {
   if (!chainId) throw new Error("no chainID");
   const basePath = path.join(process.cwd(), "contracts-deployed");
@@ -84,7 +120,11 @@ export function logDeployContracts(
   const verbosePath = path.join(verboseDir, `/${chainId}-logs.json`);
   createDirIfNone(verboseDir);
 
-  logVerbose(verbosePath, contracts);
+  const receipts = await getReceipts(provider, contracts);
+
+  logVerbose(verbosePath, contracts, receipts);
 
   console.log("Contracts logged in contracts-deployed\n");
 }
+
+export default main;

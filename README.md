@@ -62,13 +62,13 @@ Read Hardhat's [Plugin Development Guide](https://hardhat.org/advanced/building-
 
 (From Hardhat) Running `yarn run test` will run every test located in the `test/` folder.
 
-Test deploy script
+### Testing package on project
 
-```
-cd test/fixture-projects/hardhat-project
-yarn
-yarn hardhat run scripts/testDeploy.ts
-```
+1. run `yarn link` in root
+2. cd into `test/project`, then run `yarn link tt-hardhat` to link to local package
+3. do tests...
+4. if package's code is changed, run `yarn build` to rebuild the package
+5. after testing, run `yarn unlink`
 
 ## Building the project
 

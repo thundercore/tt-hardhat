@@ -4,12 +4,8 @@ import { assert } from "chai";
 import { useEnvironment } from "./helpers";
 
 describe("thundercore hardhat tests", function () {
-  // describe("Hardhat config", function () {
-  //   useEnvironment("hardhat-project");
-  // });
-
   describe("Test configs", function () {
-    useEnvironment("hardhat-project");
+    useEnvironment("project");
 
     it("Networks", function () {
       assert.equal(this.hre.config.networks["thunder-testnet"].chainId, 18);

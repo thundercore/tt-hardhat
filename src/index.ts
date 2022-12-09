@@ -1,47 +1,23 @@
 import { extendConfig, extendEnvironment } from "hardhat/config";
-import { HardhatConfig, HardhatUserConfig } from "hardhat/types";
+import { HardhatConfig } from "hardhat/types";
 import * as dotenv from "dotenv";
-import { logDeployContracts } from "./deployLogs";
+import logDeployContracts from "./deployLogs";
+import { thunder } from "./config";
 // import { lazyObject } from "hardhat/plugins";
 
 import "./type-extensions";
 
 dotenv.config();
 
-extendConfig(
-  (config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) => {
-    const env = {
-      privateKey: process.env.KEY !== undefined ? [process.env.KEY] : [],
-    };
-
-    const networkConfig = {
-      gas: 90000000,
-      gasPrice: 15e9,
-      gasMultiplier: 1,
-      timeout: 20000,
-      httpHeaders: {},
-      accounts: env.privateKey,
-    };
-
-    config.networks = {
-      ...userConfig.networks,
-      ...config.networks,
-      "thunder-testnet": {
-        url: "https://testnet-rpc.thundercore.com",
-        chainId: 18,
-        ...networkConfig,
-      },
-      "thunder-mainnet": {
-        url: "https://mainnet-rpc.thundercore.com",
-        chainId: 108,
-        ...networkConfig,
-      },
-    };
-  }
-);
+extendConfig((config: HardhatConfig) => {
+  config.networks = {
+    ...config.networks,
+    ...thunder,
+  };
+});
 
 extendEnvironment((hre) => {
-  // We add a field to the Hardhat Runtime Environment here.
+  // We add a field to th, userConfig: Readonly<HardhatUserConfig>e Hardhat Runtime Environment here.
   // We use lazyObject to avoid initializing things until they are actually
   // needed.
   hre.logDeployContracts = logDeployContracts;
