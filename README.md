@@ -66,9 +66,9 @@ Read Hardhat's [Plugin Development Guide](https://hardhat.org/advanced/building-
 
 1. run `yarn link` in root
 2. cd into `test/project`, then run `yarn link tt-hardhat` to link to local package
-3. do tests...
-4. if package's code is changed, run `yarn build` to rebuild the package
-5. after testing, run `yarn unlink`
+3. if package's code is changed, run `yarn build` to rebuild the package
+4. do tests...
+5. after testing, run `yarn unlink tt-hardhat` in test/project, then `yarn unlink` in root.
 
 ## Building the project
 

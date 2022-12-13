@@ -9,7 +9,6 @@ declare module "hardhat/types/runtime" {
   export interface HardhatRuntimeEnvironment {
     logDeployContracts: (
       chainId: number | undefined,
-      provider: BaseProvider,
       contracts: {
         [contractName: string]: any;
       }

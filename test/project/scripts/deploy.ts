@@ -13,7 +13,7 @@ async function main() {
 
   await lock.deployed();
 
-  logDeployContracts(network.config.chainId, ethers.provider, { Lock: lock });
+  logDeployContracts(network.config.chainId, { Lock: lock });
 }
 
 // We recommend this pattern to be able to use async/await everywhere
