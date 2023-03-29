@@ -6,7 +6,6 @@ const env = {
 
 const defaultConfig: Partial<NetworkConfig> = {
   gas: "auto",
-  gasPrice: "auto",
   gasMultiplier: 1,
   timeout: 20000,
   httpHeaders: {},
@@ -15,11 +14,13 @@ const defaultConfig: Partial<NetworkConfig> = {
 
 export const thunder = {
   "thunder-testnet": {
+    gasPrice: 11e9, // specify gasPrice here since testnet miners tip might be low
     url: "https://testnet-rpc.thundercore.com",
     chainId: 18,
     ...defaultConfig,
   },
   "thunder-mainnet": {
+    gasPrice: "auto",
     url: "https://mainnet-rpc.thundercore.com",
     chainId: 108,
     ...defaultConfig,
