@@ -14,7 +14,7 @@ const defaultConfig: Partial<NetworkConfig> = {
 
 export const thunder = {
   "thunder-testnet": {
-    gasPrice: 11e9, // specify gasPrice here since testnet miners tip might be low
+    gasPrice: 1100e9, // specify gasPrice here since testnet miners tip might be low
     url: "https://testnet-rpc.thundercore.com",
     chainId: 18,
     ...defaultConfig,
