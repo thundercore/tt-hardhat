@@ -65,3 +65,7 @@ typings/
 cache/
 artifacts/
 test/project/contracts-deployed
+
+# VIM
+*.swp
+*.swo
